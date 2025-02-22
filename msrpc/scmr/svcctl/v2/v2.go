@@ -12135,14 +12135,18 @@ func (o *xxx_CreateServiceWOperation) MarshalNDRRequest(ctx context.Context, w n
 	}
 	// lpdwTagId {in, out} (1:{pointer=unique, alias=LPDWORD}*(1))(2:{alias=DWORD}(uint32))
 	{
-		_ptr_lpdwTagId := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.TagID); err != nil {
+		if o.TagID != 0 {
+			_ptr_lpdwTagId := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.TagID); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.TagID, _ptr_lpdwTagId); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.TagID, _ptr_lpdwTagId); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil { return err }
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
